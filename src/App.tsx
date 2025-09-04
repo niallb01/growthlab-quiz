@@ -1,22 +1,23 @@
 // import { useEffect } from "react";
 // import { fetchQuestions } from "./services/quizService";
-import QuizContainer from "./components/QuizContainer";
+import IntroScreen from "./components/IntroScreen";
+import QuizScreen from "./components/QuizScreen";
+import EmailScreen from "./components/EmailScreen";
+import ResultsScreen from "./components/resultScreen";
+import { screenAtom } from "./atoms/quizAtoms";
+import { useAtom } from "jotai";
 
 export default function App() {
-  // SANITY API CALL
-  // useEffect(() => {
-  //   fetchQuestions()
-  //     .then((questions) => {
-  //       console.log("Questions from Sanity:", questions);
-  //     })
-  //     .catch((err) => {
-  //       console.error("Error fetching questions:", err);
-  //     });
-  // }, []);
+  const [screen] = useAtom(screenAtom);
 
   return (
     <>
-      <QuizContainer />
+      {/* <IntroScreen />
+      <QuizContainer /> */}
+      {screen === "intro" && <IntroScreen />}
+      {screen === "quiz" && <QuizScreen />}
+      {screen === "email" && <EmailScreen />}
+      {screen === "results" && <ResultsScreen />}
     </>
   );
 }
