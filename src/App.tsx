@@ -1,10 +1,8 @@
-// import { useEffect } from "react";
-// import { fetchQuestions } from "./services/quizService";
-import IntroScreen from "./components/IntroScreen";
-import QuizScreen from "./components/QuizScreen";
-import EmailScreen from "./components/EmailScreen";
-import ResultsScreen from "./components/resultScreen";
-import { screenAtom } from "./atoms/quizAtoms";
+import IntroScreen from "./screens/IntroScreen";
+import QuizScreen from "./screens/QuizScreen";
+import EmailScreen from "./screens/EmailScreen";
+import ResultsScreen from "./screens/SummaryScreen";
+import { screenAtom } from "./atoms/QuizAtoms";
 import { useAtom } from "jotai";
 
 export default function App() {
@@ -12,12 +10,10 @@ export default function App() {
 
   return (
     <>
-      {/* <IntroScreen />
-      <QuizContainer /> */}
       {screen === "intro" && <IntroScreen />}
       {screen === "quiz" && <QuizScreen />}
       {screen === "email" && <EmailScreen />}
-      {screen === "results" && <ResultsScreen />}
+      {screen === "summary" && <ResultsScreen />}
     </>
   );
 }

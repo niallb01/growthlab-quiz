@@ -3,23 +3,23 @@
     "id": "q1",
     "question": "What’s your main business goal right now?",
     "options": [
-      { "text": "Get more leads", "next": "q2" },
-      { "text": "Boost sales", "next": "q3" },
-      { "text": "Increase customer retention", "next": "q4" }
+      { "text": "Generate more leads", "next": "q2" },
+      { "text": "Increase sales", "next": "q3" },
+      { "text": "Improve customer retention", "next": "q4" }
     ]
   },
   {
     "id": "q2",
-    "question": "How are you currently generating leads?",
+    "question": "Which methods are you currently using to get leads?",
     "options": [
       { "text": "Paid ads", "next": "q5" },
-      { "text": "Organic content", "next": "q5" },
-      { "text": "Referrals", "next": "q5" }
+      { "text": "Content marketing", "next": "q5" },
+      { "text": "Referrals or partnerships", "next": "q5" }
     ]
   },
   {
     "id": "q3",
-    "question": "What’s your biggest sales challenge?",
+    "question": "What’s your biggest challenge with sales?",
     "options": [
       { "text": "Low conversion rates", "next": "q5" },
       { "text": "Not enough leads", "next": "q5" },
@@ -28,19 +28,19 @@
   },
   {
     "id": "q4",
-    "question": "How do you engage existing customers?",
+    "question": "How do you currently engage existing customers?",
     "options": [
       { "text": "Email campaigns", "next": "q5" },
-      { "text": "Community/memberships", "next": "q5" },
-      { "text": "Not really doing much", "next": "q5" }
+      { "text": "Memberships or community programs", "next": "q5" },
+      { "text": "We don’t really have a process", "next": "q5" }
     ]
   },
   {
     "id": "q5",
-    "question": "Would you like to see a tailored Growth Strategy Plan?",
+    "question": "Would you like GrowthLab to create a tailored Growth Strategy Plan for your business?",
     "options": [
       { "text": "Yes, send it to me", "next": "email" },
-      { "text": "Maybe later", "next": "end" }
+      { "text": "Maybe later", "next": "summary" }
     ]
   }
 ]

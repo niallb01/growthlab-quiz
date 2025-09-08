@@ -1,10 +1,17 @@
+// // import QuestionCard from "../components/QuestionCard";
+// // // import { currentQuestionAtom } from "../atoms/QuizAtoms";
+
+// // export default function QuizScreen() {
+// //   return <QuestionCard />;
+// // }
+
 // // import { useEffect } from "react";
 // // import { fetchQuestions } from "./services/quizService";
 
 // import { useAtom } from "jotai";
 // import { jsonAtom } from "../atoms/QuizAtoms";
 
-// export default function QuestionCard() {
+// export default function QuizScreen() {
 //   const [questionData] = useAtom(jsonAtom);
 
 //   // SANITY API CALL
@@ -34,6 +41,6 @@
 //   );
 // }
 
-export default function QuestionCard() {
-  return <div>QuestionCard</div>;
+export default function QuizScreen() {
+  return <p>QuizScreen</p>;
 }
