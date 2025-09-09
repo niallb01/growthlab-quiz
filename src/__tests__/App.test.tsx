@@ -15,7 +15,7 @@ describe("App component screens", () => {
       </Provider>
     );
 
-    expect(screen.getByText(/growthlab/i)).toBeInTheDocument();
+    expect(screen.getByTestId(/intro-screen/i)).toBeInTheDocument();
   });
 
   it("renders QuizScreen when screenAtom is quiz", () => {
@@ -28,7 +28,7 @@ describe("App component screens", () => {
       </Provider>
     );
 
-    expect(screen.getByText(/quizscreen/i)).toBeInTheDocument();
+    expect(screen.getByTestId(/quiz-screen/i)).toBeInTheDocument();
   });
 
   it("renders EmailScreen when screenAtom is email", () => {
@@ -41,7 +41,7 @@ describe("App component screens", () => {
       </Provider>
     );
 
-    expect(screen.getByText(/email/i)).toBeInTheDocument();
+    expect(screen.getByTestId(/email-screen/i)).toBeInTheDocument();
   });
 
   it("renders ResultsScreen when screenAtom is summary", () => {
@@ -54,6 +54,6 @@ describe("App component screens", () => {
       </Provider>
     );
 
-    expect(screen.getByText(/summary/i)).toBeInTheDocument();
+    expect(screen.getByTestId(/summary-screen/i)).toBeInTheDocument();
   });
 });

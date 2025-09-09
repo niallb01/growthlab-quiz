@@ -1,3 +1,3 @@
 export default function EmailScreen() {
-  return <div>EmailScreen</div>;
+  return <div data-testid="email-screen">EmailScreen</div>;
 }

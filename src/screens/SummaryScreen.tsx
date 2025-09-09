@@ -1,3 +1,3 @@
 export default function SummaryScreen() {
-  return <p>summary</p>;
+  return <div data-testid="summary-screen">Summary</div>;
 }

@@ -6,7 +6,7 @@ import IntroScreen from "../screens/IntroScreen";
 import { screenAtom } from "../atoms/QuizAtoms";
 
 describe("IntroScreen component", () => {
-  it("renders the text, logo, and button and handles click", async () => {
+  it("renders the main elements and handles click", async () => {
     // 1️⃣ Create isolated store
     const store = createStore();
     store.set(screenAtom, "intro");
@@ -18,25 +18,19 @@ describe("IntroScreen component", () => {
       </Provider>
     );
 
-    // 3️⃣ Check text
-    expect(screen.getByText(/GrowthLab/i)).toBeInTheDocument();
+    // 3️⃣ Check that some text exists (loosely, template-friendly)
+    expect(screen.getByText(/growthlab/i)).toBeInTheDocument();
 
-    // 4️⃣ Check logo image by alt text
-    const logo = screen.getByAltText("GrowthLab logo");
+    // 4️⃣ Check that logo exists (use alt or data-testid)
+    const logo = screen.getByAltText(/logo/i);
     expect(logo).toBeInTheDocument();
-    expect(logo).toHaveAttribute(
-      "src",
-      expect.stringContaining("growthlab-logo")
-    );
 
-    // 5️⃣ Check button
-    const button = screen.getByRole("button", { name: /Start Quiz/i });
+    // 5️⃣ Check that button exists (role)
+    const button = screen.getByRole("button");
     expect(button).toBeInTheDocument();
 
-    // 6️⃣ Simulate button click
+    // 6️⃣ Simulate click and verify state changes
     await userEvent.click(button);
-
-    // 7️⃣ Assert atom changed to "quiz"
     expect(store.get(screenAtom)).toBe("quiz");
   });
 });

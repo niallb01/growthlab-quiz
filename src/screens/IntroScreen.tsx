@@ -11,11 +11,16 @@ export default function IntroScreen() {
   };
 
   return (
-    <div>
+    <div data-testid="intro-screen">
       <p>GrowthLab</p>
       <div>
         <div className="flex items-center gap-2">
-          <img src={logo} alt="GrowthLab logo" className="h-80 w-auto" />
+          <img
+            src={logo}
+            alt="GrowthLab logo"
+            className="h-80 w-auto"
+            data-testid="app-logo"
+          />
         </div>
         <Button onClick={handleStart}>Start Quiz</Button>
       </div>

@@ -42,5 +42,9 @@
 // }
 
 export default function QuizScreen() {
-  return <p>QuizScreen</p>;
+  return (
+    <div data-testid="quiz-screen">
+      <p>QuizScreen</p>
+    </div>
+  );
 }
