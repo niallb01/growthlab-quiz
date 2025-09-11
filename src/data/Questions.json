@@ -1,0 +1,73 @@
+[
+  {
+    "id": "q1",
+    "question": "What’s your main business goal right now?",
+    "options": [
+      { "text": "Generate more leads", "next": "q2" },
+      { "text": "Increase sales", "next": "q3" },
+      { "text": "Improve customer retention", "next": "q4" }
+    ]
+  },
+  {
+    "id": "q2",
+    "question": "Which methods are you currently using to get leads?",
+    "options": [
+      { "text": "Paid ads", "next": "q6" },
+      { "text": "Content marketing", "next": "q7" },
+      { "text": "Referrals or partnerships", "next": "q8" }
+    ]
+  },
+  {
+    "id": "q3",
+    "question": "What’s your biggest challenge with sales?",
+    "options": [
+      { "text": "Low conversion rates", "next": "q6" },
+      { "text": "Not enough leads", "next": "q7" },
+      { "text": "Weak follow-up process", "next": "q8" }
+    ]
+  },
+  {
+    "id": "q4",
+    "question": "How do you currently engage existing customers?",
+    "options": [
+      { "text": "Email campaigns", "next": "q6" },
+      { "text": "Memberships or community programs", "next": "q7" },
+      { "text": "We don’t really have a process", "next": "q8" }
+    ]
+  },
+  {
+    "id": "q6",
+    "question": "How much budget do you allocate to marketing monthly?",
+    "options": [
+      { "text": "Less than $1,000", "next": "q5" },
+      { "text": "$1,000–$5,000", "next": "q5" },
+      { "text": "More than $5,000", "next": "q5" }
+    ]
+  },
+  {
+    "id": "q7",
+    "question": "How do you track lead generation performance?",
+    "options": [
+      { "text": "Google Analytics / dashboards", "next": "q5" },
+      { "text": "Manual spreadsheets", "next": "q5" },
+      { "text": "We don’t track", "next": "q5" }
+    ]
+  },
+  {
+    "id": "q8",
+    "question": "Do you have a sales team?",
+    "options": [
+      { "text": "Yes, in-house", "next": "q5" },
+      { "text": "Yes, outsourced", "next": "q5" },
+      { "text": "No sales team", "next": "q5" }
+    ]
+  },
+  {
+    "id": "q5",
+    "question": "Would you like GrowthLab to create a tailored Growth Strategy Plan for your business?",
+    "options": [
+      { "text": "Yes, send it to me", "next": "summary" },
+      { "text": "Maybe later", "next": "summary" }
+    ]
+  }
+]

@@ -1,29 +1,15 @@
-// // import QuestionCard from "../components/QuestionCard";
-// // // import { currentQuestionAtom } from "../atoms/QuizAtoms";
-
-// // export default function QuizScreen() {
-// //   return <QuestionCard />;
-// // }
-
 // // import { useEffect } from "react";
 // // import { fetchQuestions } from "./services/quizService";
-
 // import { useAtom } from "jotai";
 // import { jsonAtom } from "../atoms/QuizAtoms";
 
+// // question logic in here and send into question card
+
 // export default function QuizScreen() {
 //   const [questionData] = useAtom(jsonAtom);
+//   // const [currentQuestion] = useAtom(currentQuestionAtom);
 
-//   // SANITY API CALL
-//   // useEffect(() => {
-//   //   fetchQuestions()
-//   //     .then((questions) => {
-//   //       console.log("Questions from Sanity:", questions);
-//   //     })
-//   //     .catch((err) => {
-//   //       console.error("Error fetching questions:", err);
-//   //     });
-//   // }, []);
+//   // render first questioon
 
 //   return (
 //     <div>
@@ -41,10 +27,44 @@
 //   );
 // }
 
+// SANITY API CALL
+// useEffect(() => {
+//   fetchQuestions()
+//     .then((questions) => {
+//       console.log("Questions from Sanity:", questions);
+//     })
+//     .catch((err) => {
+//       console.error("Error fetching questions:", err);
+//     });
+// }, []);
+/////////////////////////////////////////////////////////
+
+import { useEffect } from "react";
+import { useAtom } from "jotai";
+import {
+  questionsAtom,
+  currentQuestionIdAtom,
+  currentQuestionAtom,
+  answerQuestionAtom,
+} from "../atoms/QuizAtoms";
+import Questions from "../data/Questions.json";
+import QuestionCard from "../components/QuestionCard";
+
 export default function QuizScreen() {
-  return (
-    <div data-testid="quiz-screen">
-      <p>QuizScreen</p>
-    </div>
-  );
+  const [, setQuestions] = useAtom(questionsAtom);
+  const [, setCurrentQuestionId] = useAtom(currentQuestionIdAtom);
+  const [currentQuestion] = useAtom(currentQuestionAtom);
+  const [, answerQuestion] = useAtom(answerQuestionAtom);
+
+  // Load questions and set first question
+  useEffect(() => {
+    setQuestions(Questions);
+    if (Questions.length > 0) setCurrentQuestionId(Questions[0].id);
+  }, []);
+
+  if (!currentQuestion) return <div>Loading questions...</div>;
+
+  console.log(currentQuestion, currentQuestionAtom);
+
+  return <QuestionCard question={currentQuestion} onAnswer={answerQuestion} />;
 }

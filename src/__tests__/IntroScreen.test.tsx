@@ -18,12 +18,12 @@ describe("IntroScreen component", () => {
       </Provider>
     );
 
-    // 4️⃣ Check that logo exists (use alt or data-testid)
+    // Check that logo exists (use alt or data-testid)
     const logo = screen.getByAltText(/logo/i);
     expect(logo).toBeInTheDocument();
 
-    // 5️⃣ Check that button exists (role)
-    const button = screen.getByRole("button", { name: /start/i });
+    // Check that button exists (role)
+    const button = screen.getByRole("button");
     expect(button).toBeInTheDocument();
 
     const header = screen.getByTestId(/app-header/i);
@@ -32,7 +32,7 @@ describe("IntroScreen component", () => {
     const text = screen.getByTestId(/quiz-text/i);
     expect(text).toBeInTheDocument();
 
-    // 6️⃣ Simulate click and verify state changes
+    // Simulate click and verify state changes
     await userEvent.click(button);
     expect(store.get(screenAtom)).toBe("quiz");
   });

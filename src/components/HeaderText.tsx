@@ -1,5 +1,5 @@
 export default function HeaderText({
-  text = "Grow yo business",
+  text = "Grow yo business bitch",
 }: {
   text?: string;
 }) {
