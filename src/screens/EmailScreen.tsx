@@ -10,6 +10,7 @@ interface MailPageProps {
 }
 
 export default function EmailScreen({ onSubmit }: MailPageProps) {
+  // create atoms - one object better or not needed?
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 

@@ -60,7 +60,7 @@ export default function QuizScreen() {
   useEffect(() => {
     setQuestions(Questions);
     if (Questions.length > 0) setCurrentQuestionId(Questions[0].id);
-  }, []);
+  }, [setCurrentQuestionId, setQuestions]);
 
   if (!currentQuestion) return <div>Loading questions...</div>;
 

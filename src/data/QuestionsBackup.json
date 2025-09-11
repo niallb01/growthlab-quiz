@@ -38,9 +38,6 @@
   {
     "id": "q5",
     "question": "Would you like GrowthLab to create a tailored Growth Strategy Plan for your business?",
-    "options": [
-      { "text": "Yes, send it to me", "next": "email" },
-      { "text": "Maybe later", "next": "summary" }
-    ]
+    "options": [{ "text": "Yes, send it to me", "next": "email" }]
   }
 ]

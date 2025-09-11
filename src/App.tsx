@@ -1,9 +1,9 @@
 import IntroScreen from "./screens/IntroScreen";
 import QuizScreen from "./screens/QuizScreen";
 import EmailScreen from "./screens/EmailScreen";
-import ResultsScreen from "./screens/SummaryScreen";
 import { screenAtom } from "./atoms/QuizAtoms";
 import { useAtom } from "jotai";
+import CompletionScreen from "./screens/CompletionScreen";
 
 export default function App() {
   const [screen] = useAtom(screenAtom);
@@ -13,7 +13,7 @@ export default function App() {
       {screen === "intro" && <IntroScreen />}
       {screen === "quiz" && <QuizScreen />}
       {screen === "email" && <EmailScreen />}
-      {screen === "summary" && <ResultsScreen />}
+      {screen === "completion" && <CompletionScreen />}
     </>
   );
 }

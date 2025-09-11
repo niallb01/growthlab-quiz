@@ -30,7 +30,9 @@ export interface QuizQuestion {
 export const questionsAtom = atom<QuizQuestion[]>([]);
 
 // Which screen we’re on
-export const screenAtom = atom<"intro" | "quiz" | "email" | "summary">("intro");
+export const screenAtom = atom<"intro" | "quiz" | "email" | "completion">(
+  "intro"
+);
 
 // Track current question ID
 export const currentQuestionIdAtom = atom<string | null>(null);
@@ -62,14 +64,14 @@ export const answerQuestionAtom = atom(
     if (option.next?.startsWith("q")) {
       // Go to another question
       set(currentQuestionIdAtom, option.next);
-    } else if (option.next === "email" || option.next === "summary") {
+    } else if (option.next === "email" || option.next === "completion") {
       // Jump to a screen
       set(currentQuestionIdAtom, null);
       set(screenAtom, option.next);
     } else {
       // End fallback
       set(currentQuestionIdAtom, null);
-      set(screenAtom, "summary");
+      set(screenAtom, "completion");
     }
   }
 );
