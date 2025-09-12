@@ -1,18 +1,48 @@
+// import IntroScreen from "./screens/IntroScreen";
+// import QuizScreen from "./screens/QuizScreen";
+// import EmailScreen from "./screens/EmailScreen";
+// import { screenAtom } from "./atoms/QuizAtoms";
+// import { useAtom } from "jotai";
+// import CompletionScreen from "./screens/CompletionScreen";
+
+// export default function App() {
+//   const [screen] = useAtom(screenAtom);
+
+//   return (
+//     <>
+//       {screen === "intro" && <IntroScreen />}
+//       {screen === "quiz" && <QuizScreen />}
+//       {screen === "email" && <EmailScreen />}
+//       {screen === "completion" && <CompletionScreen />}
+//     </>
+//   );
+// }
+
 import IntroScreen from "./screens/IntroScreen";
 import QuizScreen from "./screens/QuizScreen";
 import EmailScreen from "./screens/EmailScreen";
-import { screenAtom } from "./atoms/QuizAtoms";
-import { useAtom } from "jotai";
 import CompletionScreen from "./screens/CompletionScreen";
+import { screenAtom, leadCaptureAtom } from "./atoms/QuizAtoms";
+import { useAtom } from "jotai";
 
 export default function App() {
   const [screen] = useAtom(screenAtom);
+  const [leadCapture] = useAtom(leadCaptureAtom);
+
+  const handleEmailSubmit = (name: string, email: string) => {
+    console.log("Final submit:");
+    console.log("Name:", name);
+    console.log("Email:", email);
+    console.log("Quiz answers:", leadCapture.answers);
+
+    // You can also send data to your API here
+  };
 
   return (
     <>
       {screen === "intro" && <IntroScreen />}
       {screen === "quiz" && <QuizScreen />}
-      {screen === "email" && <EmailScreen />}
+      {screen === "email" && <EmailScreen onSubmit={handleEmailSubmit} />}
       {screen === "completion" && <CompletionScreen />}
     </>
   );

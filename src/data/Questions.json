@@ -4,67 +4,167 @@
     "question": "What’s your main business goal right now?",
     "options": [
       { "text": "Generate more leads", "next": "q2" },
-      { "text": "Increase sales", "next": "q3" },
-      { "text": "Improve customer retention", "next": "q4" }
+      { "text": "Increase sales", "next": "q5" },
+      { "text": "Improve customer retention", "next": "q8" },
+      { "text": "Work with GrowthLab to scale quickly", "next": "q2" }
     ]
   },
   {
     "id": "q2",
-    "question": "Which methods are you currently using to get leads?",
+    "question": "Which channels are you currently using for lead generation?",
     "options": [
-      { "text": "Paid ads", "next": "q6" },
-      { "text": "Content marketing", "next": "q7" },
-      { "text": "Referrals or partnerships", "next": "q8" }
+      { "text": "Paid ads", "next": "q3" },
+      { "text": "Content marketing", "next": "q4" },
+      { "text": "Referrals or networking", "next": "q4" },
+      { "text": "GrowthLab’s recommended channels", "next": "q3" }
     ]
   },
   {
     "id": "q3",
-    "question": "What’s your biggest challenge with sales?",
+    "question": "Roughly how much are you spending on ads each month?",
     "options": [
-      { "text": "Low conversion rates", "next": "q6" },
-      { "text": "Not enough leads", "next": "q7" },
-      { "text": "Weak follow-up process", "next": "q8" }
+      { "text": "Under £500", "next": "q10" },
+      { "text": "£500–£5,000", "next": "q11" },
+      { "text": "Over £5,000", "next": "q12" },
+      { "text": "I want GrowthLab to optimize my spend", "next": "q12" }
     ]
   },
   {
     "id": "q4",
-    "question": "How do you currently engage existing customers?",
+    "question": "How consistent are your inbound leads from content?",
     "options": [
-      { "text": "Email campaigns", "next": "q6" },
-      { "text": "Memberships or community programs", "next": "q7" },
-      { "text": "We don’t really have a process", "next": "q8" }
-    ]
-  },
-  {
-    "id": "q6",
-    "question": "How much budget do you allocate to marketing monthly?",
-    "options": [
-      { "text": "Less than $1,000", "next": "q5" },
-      { "text": "$1,000–$5,000", "next": "q5" },
-      { "text": "More than $5,000", "next": "q5" }
-    ]
-  },
-  {
-    "id": "q7",
-    "question": "How do you track lead generation performance?",
-    "options": [
-      { "text": "Google Analytics / dashboards", "next": "q5" },
-      { "text": "Manual spreadsheets", "next": "q5" },
-      { "text": "We don’t track", "next": "q5" }
-    ]
-  },
-  {
-    "id": "q8",
-    "question": "Do you have a sales team?",
-    "options": [
-      { "text": "Yes, in-house", "next": "q5" },
-      { "text": "Yes, outsourced", "next": "q5" },
-      { "text": "No sales team", "next": "q5" }
+      { "text": "Very consistent", "next": "q12" },
+      { "text": "Somewhat consistent", "next": "q11" },
+      { "text": "Not consistent", "next": "q10" },
+      { "text": "I’d like GrowthLab to improve consistency", "next": "q12" }
     ]
   },
   {
     "id": "q5",
-    "question": "Would you like GrowthLab to create a tailored Growth Strategy Plan for your business?",
-    "options": [{ "text": "Yes, send it to me", "next": "email" }]
+    "question": "What’s your biggest challenge with sales?",
+    "options": [
+      { "text": "Low conversion rates", "next": "q6" },
+      { "text": "Not enough qualified leads", "next": "q2" },
+      { "text": "Weak follow-up process", "next": "q7" },
+      { "text": "GrowthLab could help optimize our sales", "next": "q6" }
+    ]
+  },
+  {
+    "id": "q6",
+    "question": "Do you use a CRM to manage prospects?",
+    "options": [
+      { "text": "Yes, fully set up", "next": "q12" },
+      { "text": "Yes, but under-used", "next": "q11" },
+      { "text": "No CRM yet", "next": "q10" },
+      {
+        "text": "Planning to implement GrowthLab’s CRM suggestions",
+        "next": "q11"
+      }
+    ]
+  },
+  {
+    "id": "q7",
+    "question": "Do you have a dedicated sales team?",
+    "options": [
+      { "text": "Yes, in-house", "next": "q12" },
+      { "text": "Yes, outsourced", "next": "q11" },
+      { "text": "No sales team", "next": "q10" },
+      { "text": "Considering GrowthLab’s sales support", "next": "q11" }
+    ]
+  },
+  {
+    "id": "q8",
+    "question": "How do you currently engage existing customers?",
+    "options": [
+      { "text": "Email campaigns", "next": "q9" },
+      { "text": "Memberships or loyalty programmes", "next": "q9" },
+      { "text": "We don’t really have a process", "next": "q12" },
+      {
+        "text": "I’d like GrowthLab to implement engagement strategies",
+        "next": "q12"
+      }
+    ]
+  },
+  {
+    "id": "q9",
+    "question": "Do you upsell or cross-sell to customers?",
+    "options": [
+      { "text": "Yes, regularly", "next": "q11" },
+      { "text": "Occasionally", "next": "q12" },
+      { "text": "Not at all", "next": "q10" },
+      {
+        "text": "GrowthLab could help with upselling strategies",
+        "next": "q11"
+      }
+    ]
+  },
+  {
+    "id": "q10",
+    "question": "How do you measure marketing performance?",
+    "options": [
+      { "text": "Analytics dashboards", "next": "q13" },
+      { "text": "Manual spreadsheets", "next": "q13" },
+      { "text": "We don’t track it", "next": "q14" },
+      {
+        "text": "GrowthLab could help track and optimize results",
+        "next": "q13"
+      }
+    ]
+  },
+  {
+    "id": "q11",
+    "question": "How do you nurture leads or customers over time?",
+    "options": [
+      { "text": "Email sequences", "next": "q13" },
+      { "text": "Manual follow-ups", "next": "q13" },
+      { "text": "We don’t nurture", "next": "q14" },
+      {
+        "text": "GrowthLab could set up automated nurture sequences",
+        "next": "q13"
+      }
+    ]
+  },
+  {
+    "id": "q12",
+    "question": "What’s your average deal size?",
+    "options": [
+      { "text": "Under £500", "next": "q13" },
+      { "text": "£500–£5,000", "next": "q13" },
+      { "text": "Over £5,000", "next": "q14" },
+      { "text": "I’d like GrowthLab to help increase deal size", "next": "q14" }
+    ]
+  },
+  {
+    "id": "q13",
+    "question": "How soon are you aiming for your next growth milestone?",
+    "options": [
+      { "text": "Immediately", "next": "q14" },
+      { "text": "Within 3 months", "next": "q14" },
+      { "text": "This year", "next": "q14" },
+      { "text": "With GrowthLab’s support, as soon as possible", "next": "q14" }
+    ]
+  },
+  {
+    "id": "q14",
+    "question": "Which area would you like the most support with first?",
+    "options": [
+      { "text": "More qualified leads", "next": "q15" },
+      { "text": "Higher conversions", "next": "q15" },
+      { "text": "Better retention", "next": "q15" },
+      { "text": "GrowthLab to handle all areas", "next": "q15" }
+    ]
+  },
+  {
+    "id": "q15",
+    "question": "Which aspect of your business would you like the most help improving first?",
+    "options": [
+      { "text": "Lead generation", "next": "email" },
+      { "text": "Sales conversion", "next": "email" },
+      { "text": "Customer retention", "next": "email" },
+      {
+        "text": "GrowthLab to advise on overall growth strategy",
+        "next": "email"
+      }
+    ]
   }
 ]
