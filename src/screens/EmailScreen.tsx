@@ -54,6 +54,8 @@
 //   );
 // }
 
+import { leadSchema } from "../validation/leadSchema";
+
 import { useAtom } from "jotai";
 import Button from "../components/Button";
 import { leadCaptureAtom } from "../atoms/QuizAtoms";
@@ -65,16 +67,31 @@ interface MailPageProps {
 export default function EmailScreen({ onSubmit }: MailPageProps) {
   const [leadCapture, setLeadCapture] = useAtom(leadCaptureAtom);
 
+  // const handleSubmit = () => {
+  //   const { name, email } = leadCapture.lead;
+
+  //   if (name && email) {
+  //     console.log("Name:", name);
+  //     console.log("Email:", email);
+  //     onSubmit(name, email);
+  //   } else {
+  //     alert("Please enter both your name and email.");
+  //   }
+  // };
+
   const handleSubmit = () => {
     const { name, email } = leadCapture.lead;
 
-    if (name && email) {
-      console.log("Name:", name);
-      console.log("Email:", email);
-      onSubmit(name, email);
-    } else {
-      alert("Please enter both your name and email.");
+    // Validate with Joi schema
+    const { error } = leadSchema.validate({ name: name, email });
+
+    if (error) {
+      alert(error.details[0].message); // keep MVP simple
+      return;
     }
+
+    console.log("✅ Valid lead:", { name, email });
+    onSubmit(name, email);
   };
 
   return (
