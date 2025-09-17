@@ -1,0 +1,7 @@
+[build]
+  functions = "functions"
+  command = "npm run build" # if needed for your React build
+  publish = "dist"          # or "build" for CRA/Vite
+
+[dev]
+  functions = "functions"
