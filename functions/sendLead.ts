@@ -233,7 +233,6 @@ export const handler: Handler = async (event) => {
       email,
       name,
       fields: { quiz_answers: formattedAnswers },
-      //   groups: [Number(process.env.MAILERLITE_GROUP_ID)],
       groups: [process.env.MAILERLITE_GROUP_ID], // <-- Use the variable directly
     };
 

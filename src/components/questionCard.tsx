@@ -139,12 +139,22 @@ export default function QuestionCard({
       <div className="bg-white rounded-2xl shadow-lg p-10 flex flex-col items-center text-center space-y-4 max-w-lg w-full">
         <h2 className="text-2xl font-bold">{question.question}</h2>
 
-        <div className="flex flex-col w-full space-y-2">
+        {/* <div className="flex flex-col w-full space-y-2">
           {question.options.map((option, idx) => (
             <Button key={idx} onClick={() => onAnswer(option)}>
               {option.text}
             </Button>
           ))}
+        </div> */}
+
+        <div className="flex flex-col w-full space-y-2">
+          {question.options
+            .filter((option): option is QuestionOption => option != null)
+            .map((option, idx) => (
+              <Button key={idx} onClick={() => onAnswer(option)}>
+                {option.text}
+              </Button>
+            ))}
         </div>
       </div>
     </div>
