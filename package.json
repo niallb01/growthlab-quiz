@@ -13,6 +13,7 @@
   "dependencies": {
     "@netlify/functions": "^4.2.5",
     "@sanity/client": "^7.10.0",
+    "@sanity/orderable-document-list": "^1.4.0",
     "@tailwindcss/vite": "^4.1.12",
     "joi": "^18.0.1",
     "jotai": "^2.13.1",

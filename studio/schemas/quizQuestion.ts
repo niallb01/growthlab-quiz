@@ -67,6 +67,121 @@
 // })
 ////////////////////////////////////
 
+// import {defineType} from 'sanity'
+
+// export const quizQuestion = defineType({
+//   name: 'quizQuestion',
+//   title: 'Quiz Question',
+//   type: 'document',
+//   fields: [
+//     {
+//       name: 'question',
+//       title: 'Question',
+//       type: 'string',
+//       validation: (Rule) => Rule.required(),
+//     },
+//     {
+//       name: 'options',
+//       title: 'Options',
+//       type: 'array',
+//       of: [
+//         {
+//           type: 'object',
+//           title: 'Option',
+//           fields: [
+//             {
+//               name: 'text',
+//               title: 'Option Text',
+//               type: 'string',
+//               validation: (Rule) => Rule.required(),
+//             },
+//             {
+//               name: 'next',
+//               title: 'Next Question',
+//               type: 'reference', // ✅ reference to another Quiz Question
+//               to: [{type: 'quizQuestion'}],
+//               description: 'Select the next question, or leave empty for "completion".',
+//             },
+//           ],
+//           preview: {
+//             select: {
+//               title: 'text',
+//               subtitle: 'next.question',
+//             },
+//           },
+//         },
+//       ],
+//       validation: (Rule) => Rule.required().min(1),
+//     },
+//   ],
+// })
+//////////////////////////////
+
+// import {defineType} from 'sanity'
+
+// export const quizQuestion = defineType({
+//   name: 'quizQuestion',
+//   title: 'Quiz Question',
+//   type: 'document',
+//   fields: [
+//     {
+//       name: 'order',
+//       title: 'Order',
+//       type: 'number',
+//       description: 'Use this to control the default sequence of questions.',
+//       validation: (Rule) => Rule.required().min(1),
+//     },
+//     {
+//       name: 'question',
+//       title: 'Question',
+//       type: 'string',
+//       validation: (Rule) => Rule.required(),
+//     },
+//     {
+//       name: 'options',
+//       title: 'Options',
+//       type: 'array',
+//       of: [
+//         {
+//           type: 'object',
+//           title: 'Option',
+//           fields: [
+//             {
+//               name: 'text',
+//               title: 'Option Text',
+//               type: 'string',
+//               validation: (Rule) => Rule.required(),
+//             },
+//             {
+//               name: 'next',
+//               title: 'Next Question',
+//               type: 'reference', // ✅ reference to another Quiz Question
+//               to: [{type: 'quizQuestion'}],
+//               description: 'Select the next question, or leave empty for "completion".',
+//             },
+//           ],
+//           preview: {
+//             select: {
+//               title: 'text',
+//               subtitle: 'next.question',
+//             },
+//           },
+//         },
+//       ],
+//       validation: (Rule) => Rule.required().min(1),
+//     },
+//   ],
+//   orderings: [
+//     {
+//       title: 'Order Ascending',
+//       name: 'orderAsc',
+//       by: [{field: 'order', direction: 'asc'}],
+//     },
+//   ],
+// })
+
+/////////////////////////////
+
 import {defineType} from 'sanity'
 
 export const quizQuestion = defineType({
@@ -74,6 +189,13 @@ export const quizQuestion = defineType({
   title: 'Quiz Question',
   type: 'document',
   fields: [
+    {
+      name: 'order',
+      title: 'Order',
+      type: 'number',
+      description: 'Use this to control the default sequence of questions.',
+      validation: (Rule) => Rule.required().min(1),
+    },
     {
       name: 'question',
       title: 'Question',
@@ -98,7 +220,7 @@ export const quizQuestion = defineType({
             {
               name: 'next',
               title: 'Next Question',
-              type: 'reference', // ✅ reference to another Quiz Question
+              type: 'reference',
               to: [{type: 'quizQuestion'}],
               description: 'Select the next question, or leave empty for "completion".',
             },
@@ -112,6 +234,13 @@ export const quizQuestion = defineType({
         },
       ],
       validation: (Rule) => Rule.required().min(1),
+    },
+  ],
+  orderings: [
+    {
+      title: 'Order Ascending',
+      name: 'orderAsc',
+      by: [{field: 'order', direction: 'asc'}],
     },
   ],
 })
