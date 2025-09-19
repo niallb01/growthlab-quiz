@@ -84,12 +84,36 @@ export interface QuizQuestion {
 }
 
 // Fetch branching questions from Sanity
+// export async function fetchQuestions(): Promise<QuizQuestion[]> {
+//   const query = `*[_type == "quizQuestion"]{
+//     "id": _id,
+//     question,
+//     options[]{ text, next }
+//   } | order(_createdAt asc)`;
+
+//   try {
+//     const questions: QuizQuestion[] = await client.fetch(query);
+//     console.log("✅ Fetched questions:", questions);
+//     return questions;
+//   } catch (err) {
+//     console.error("❌ Error fetching questions:", err);
+//     return [];
+//   }
+// }
+
 export async function fetchQuestions(): Promise<QuizQuestion[]> {
-  const query = `*[_type == "quizQuestion"]{
+  const query = `*[_type == "quizQuestion"] | order(order asc) {
     "id": _id,
     question,
-    options[]{ text, next }
-  } | order(_createdAt asc)`;
+    options[]{
+      text,
+      // If next is a reference, resolve to its _id
+      "next": select(
+        defined(next->_id) => next->_id,
+        next // keep "email" or "completion" strings as-is
+      )
+    }
+  }`;
 
   try {
     const questions: QuizQuestion[] = await client.fetch(query);

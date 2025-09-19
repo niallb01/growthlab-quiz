@@ -109,13 +109,45 @@ export const currentQuestionAtom = atom((get) => {
 });
 
 // Action: answer a question and branch
+// export const answerQuestionAtom = atom(
+//   null,
+//   (get, set, option: { text: string; next?: string }) => {
+//     const currentQ = get(currentQuestionAtom);
+//     if (!currentQ) return;
+
+//     // Save the answer inside leadCaptureAtom.answers
+//     set(leadCaptureAtom, (prev) => ({
+//       ...prev,
+//       answers: {
+//         ...prev.answers,
+//         [currentQ.id]: option.text,
+//       },
+//     }));
+
+//     // Handle branching
+//     if (option.next?.startsWith("q")) {
+//       // Go to another question
+//       set(currentQuestionIdAtom, option.next);
+//     } else if (option.next === "email" || option.next === "completion") {
+//       // Jump to a screen
+//       set(currentQuestionIdAtom, null);
+//       set(screenAtom, option.next);
+//     } else {
+//       // End fallback
+//       set(currentQuestionIdAtom, null);
+//       set(screenAtom, "completion");
+//     }
+//   }
+// );
+///////////////////////////////////////////////////////////////
+
 export const answerQuestionAtom = atom(
   null,
   (get, set, option: { text: string; next?: string }) => {
     const currentQ = get(currentQuestionAtom);
     if (!currentQ) return;
 
-    // Save the answer inside leadCaptureAtom.answers
+    // Save the answer
     set(leadCaptureAtom, (prev) => ({
       ...prev,
       answers: {
@@ -125,15 +157,19 @@ export const answerQuestionAtom = atom(
     }));
 
     // Handle branching
-    if (option.next?.startsWith("q")) {
-      // Go to another question
+    if (
+      option.next &&
+      option.next !== "email" &&
+      option.next !== "completion"
+    ) {
+      // ✅ Treat as another Sanity question ID
       set(currentQuestionIdAtom, option.next);
     } else if (option.next === "email" || option.next === "completion") {
-      // Jump to a screen
+      // ✅ Jump to special screens
       set(currentQuestionIdAtom, null);
       set(screenAtom, option.next);
     } else {
-      // End fallback
+      // ✅ Fallback to completion if next is missing
       set(currentQuestionIdAtom, null);
       set(screenAtom, "completion");
     }
