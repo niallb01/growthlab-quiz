@@ -1,7 +1,24 @@
 [build]
-  functions = "functions"
-  command = "npm run build" # if needed for your React build
-  publish = "dist"          # or "build" for CRA/Vite
+  command = "npm run build"
+  publish = "dist"
 
-[dev]
-  functions = "functions"
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

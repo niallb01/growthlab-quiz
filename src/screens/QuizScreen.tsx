@@ -1,119 +1,4 @@
-// // import { useEffect } from "react";
-// // import { fetchQuestions } from "./services/quizService";
-// import { useAtom } from "jotai";
-// import { jsonAtom } from "../atoms/QuizAtoms";
-
-// // question logic in here and send into question card
-
-// export default function QuizScreen() {
-//   const [questionData] = useAtom(jsonAtom);
-//   // const [currentQuestion] = useAtom(currentQuestionAtom);
-
-//   // render first questioon
-
-//   return (
-//     <div>
-//       {questionData.map((q) => (
-//         <div className="mb-6">
-//           <h2 className="text-lg font-bold mb-1">{q.question}</h2>
-//           <ul>
-//             {q.options.map((option) => (
-//               <li className="mb-1">{option.text}</li>
-//             ))}
-//           </ul>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
-
-// SANITY API CALL
-// useEffect(() => {
-//   fetchQuestions()
-//     .then((questions) => {
-//       console.log("Questions from Sanity:", questions);
-//     })
-//     .catch((err) => {
-//       console.error("Error fetching questions:", err);
-//     });
-// }, []);
-/////////////////////////////////////////////////////////
-
-// import { useEffect } from "react";
-// import { useAtom } from "jotai";
-// import {
-//   questionsAtom,
-//   currentQuestionIdAtom,
-//   currentQuestionAtom,
-//   answerQuestionAtom,
-// } from "../atoms/QuizAtoms";
-// import Questions from "../data/Questions.json";
-// import QuestionCard from "../components/QuestionCard";
-
-// export default function QuizScreen() {
-//   const [, setQuestions] = useAtom(questionsAtom);
-//   const [, setCurrentQuestionId] = useAtom(currentQuestionIdAtom);
-//   const [currentQuestion] = useAtom(currentQuestionAtom);
-//   const [, answerQuestion] = useAtom(answerQuestionAtom);
-
-//   // Load questions and set first question
-//   useEffect(() => {
-//     setQuestions(Questions);
-//     if (Questions.length > 0) setCurrentQuestionId(Questions[0].id);
-//   }, [setCurrentQuestionId, setQuestions]);
-
-//   if (!currentQuestion) return <div>Loading questions...</div>;
-
-//   console.log(currentQuestion, currentQuestionAtom);
-
-//   return <QuestionCard question={currentQuestion} onAnswer={answerQuestion} />;
-// }
-
-///////////////////////////
-
-// import { useEffect } from "react";
-// import { useAtom } from "jotai";
-// import {
-//   questionsAtom,
-//   currentQuestionIdAtom,
-//   currentQuestionAtom,
-//   answerQuestionAtom,
-// } from "../atoms/QuizAtoms";
-// import QuestionCard from "../components/QuestionCard";
-// import { fetchQuestions, type QuizQuestion } from "../services/quizService";
-
-// export default function QuizScreen() {
-//   const [, setQuestions] = useAtom(questionsAtom);
-//   const [, setCurrentQuestionId] = useAtom(currentQuestionIdAtom);
-//   const [currentQuestion] = useAtom(currentQuestionAtom);
-//   const [, answerQuestion] = useAtom(answerQuestionAtom);
-
-//   // Fetch questions from Sanity and set the first question
-//   useEffect(() => {
-//     async function loadQuestions() {
-//       try {
-//         const questions: QuizQuestion[] = await fetchQuestions();
-//         setQuestions(questions);
-
-//         if (questions.length > 0) {
-//           setCurrentQuestionId(questions[0].id); // start with the first question
-//         }
-//       } catch (err) {
-//         console.error("Error fetching questions from Sanity:", err);
-//       }
-//     }
-
-//     loadQuestions();
-//   }, [setQuestions, setCurrentQuestionId]);
-
-//   if (!currentQuestion) return <div>Loading questions...</div>;
-
-//   return <QuestionCard question={currentQuestion} onAnswer={answerQuestion} />;
-// }
-
-//////////////////////////////////////
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 import {
   questionsAtom,
@@ -121,30 +6,143 @@ import {
   currentQuestionAtom,
   answerQuestionAtom,
 } from "../atoms/QuizAtoms";
-import { fetchQuestions, type QuizQuestion } from "../services/quizService";
+import { fetchQuestions } from "../services/quizService";
 import QuestionCard from "../components/QuestionCard";
+import ProgressBar from "../components/ProgressBar";
 
 export default function QuizScreen() {
-  const [, setQuestions] = useAtom(questionsAtom);
+  const [questions, setQuestions] = useAtom(questionsAtom);
   const [, setCurrentQuestionId] = useAtom(currentQuestionIdAtom);
   const [currentQuestion] = useAtom(currentQuestionAtom);
   const [, answerQuestion] = useAtom(answerQuestionAtom);
 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     const loadQuestions = async () => {
       try {
-        const questions: QuizQuestion[] = await fetchQuestions();
+        setLoading(true);
+        setError(null);
+        const questions = await fetchQuestions();
+
+        if (questions.length === 0) {
+          setError(
+            "No questions found. Please check your Sanity configuration."
+          );
+          return;
+        }
+
         setQuestions(questions);
-        if (questions.length > 0) setCurrentQuestionId(questions[0].id);
+        setCurrentQuestionId(questions[0].id);
       } catch (err) {
         console.error("Error fetching questions:", err);
+        setError("Failed to load questions. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     };
-
     loadQuestions();
   }, [setCurrentQuestionId, setQuestions]);
 
-  if (!currentQuestion) return <div>Loading questions...</div>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 flex flex-col items-center text-center space-y-8 max-w-2xl w-full mx-4">
+          <div className="space-y-6">
+            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
+              <div className="animate-spin rounded-full h-8 w-8 border-2 border-gray-300 border-t-slate-600"></div>
+            </div>
+            <div className="space-y-4">
+              <h2 className="text-xl font-semibold text-gray-900">
+                Loading Quiz
+              </h2>
+              <p className="text-gray-600">Preparing questions...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-  return <QuestionCard question={currentQuestion} onAnswer={answerQuestion} />;
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 flex flex-col items-center text-center space-y-6 max-w-lg w-full mx-4">
+          <div className="space-y-4">
+            <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto">
+              <span className="text-red-600 text-lg">⚠</span>
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-gray-900">
+                Configuration Required
+              </h2>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                This quiz needs to be configured with your Sanity CMS. Check the
+                setup guide for instructions.
+              </p>
+            </div>
+            <div className="space-y-2 text-xs text-gray-500">
+              <p>Error: {error}</p>
+            </div>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-gray-700 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors duration-200"
+            >
+              Try Again
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!currentQuestion) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 flex flex-col items-center text-center space-y-8 max-w-2xl w-full mx-4">
+          <div className="space-y-6">
+            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
+              <span className="text-gray-600 text-2xl">?</span>
+            </div>
+            <div className="space-y-4">
+              <h2 className="text-xl font-semibold text-gray-900">
+                No Questions Available
+              </h2>
+              <p className="text-gray-600">
+                No questions to display at the moment.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Calculate current question number and total questions
+  const currentQuestionIndex = questions.findIndex(
+    (q) => q.id === currentQuestion.id
+  );
+  const currentStep = currentQuestionIndex + 1;
+  const totalSteps = questions.length;
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-8">
+      <div className="max-w-xl mx-auto px-4 w-full">
+        {/* Progress Bar */}
+        <div className="mb-6">
+          <ProgressBar
+            currentStep={currentStep}
+            totalSteps={totalSteps}
+            className="w-full"
+          />
+        </div>
+
+        {/* Question Container */}
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+          <QuestionCard question={currentQuestion} onAnswer={answerQuestion} />
+        </div>
+      </div>
+    </div>
+  );
 }

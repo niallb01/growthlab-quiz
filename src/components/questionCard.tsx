@@ -1,161 +1,66 @@
-// // import { useEffect } from "react";
-// // import { fetchQuestions } from "./services/quizService";
-
-// import { useAtom } from "jotai";
-// import { jsonAtom } from "../atoms/QuizAtoms";
-
-// export default function QuestionCard() {
-//   const [questionData] = useAtom(jsonAtom);
-
-//   // SANITY API CALL
-//   // useEffect(() => {
-//   //   fetchQuestions()
-//   //     .then((questions) => {
-//   //       console.log("Questions from Sanity:", questions);
-//   //     })
-//   //     .catch((err) => {
-//   //       console.error("Error fetching questions:", err);
-//   //     });
-//   // }, []);
-
-//   return (
-//     <div>
-//       {questionData.map((q) => (
-//         <div className="mb-6">
-//           <h2 className="text-lg font-bold mb-1">{q.question}</h2>
-//           <ul>
-//             {q.options.map((option) => (
-//               <li className="mb-1">{option.text}</li>
-//             ))}
-//           </ul>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
-
-/////////////////////////////
-
-// interface QuestionOption {
-//   text: string;
-//   next?: string;
-// }
-
-// interface QuizQuestion {
-//   id: string;
-//   question: string;
-//   options: QuestionOption[];
-// }
-
-// interface QuestionCardProps {
-//   question: QuizQuestion;
-//   onAnswer: (option: QuestionOption) => void;
-// }
-
-// export default function QuestionCard({
-//   question,
-//   onAnswer,
-// }: QuestionCardProps) {
-//   return (
-//     <div>
-//       <h2>{question.question}</h2>
-//       <ul>
-//         {question.options.map((opt, idx) => (
-//           <li key={idx}>
-//             <button onClick={() => onAnswer(opt)}>{opt.text}</button>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-/////////////////////
-
-// interface QuestionOption {
-//   text: string;
-//   next?: string;
-// }
-
-// interface QuizQuestion {
-//   id: string;
-//   question: string;
-//   options: QuestionOption[];
-// }
-
-// interface QuestionCardProps {
-//   question: QuizQuestion;
-//   onAnswer: (option: QuestionOption) => void;
-// }
-
-// export default function QuestionCard({
-//   question,
-//   onAnswer,
-// }: QuestionCardProps) {
-//   return (
-//     <div className="p-6 bg-white rounded-xl shadow-md max-w-md mx-auto">
-//       <h2 className="text-xl font-bold mb-4">{question.question}</h2>
-//       <ul className="space-y-2">
-//         {question.options.map((option, idx) => (
-//           <li key={idx}>
-//             <button
-//               className="w-full text-left px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-//               onClick={() => onAnswer(option)}
-//             >
-//               {option.text}
-//             </button>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
-///////////////////
-
-import Button from "../components/Button";
-
-interface QuestionOption {
-  text: string;
-  next?: string;
-}
-
-interface QuizQuestion {
-  id: string;
-  question: string;
-  options: QuestionOption[];
-}
+import { useState } from "react";
+import type { QuizQuestion } from "../atoms/QuizAtoms";
 
 interface QuestionCardProps {
   question: QuizQuestion;
-  onAnswer: (option: QuestionOption) => void;
+  onAnswer: (option: {
+    text: string;
+    next?: { _id: string; _type: string } | null;
+  }) => void;
 }
 
 export default function QuestionCard({
   question,
   onAnswer,
 }: QuestionCardProps) {
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+
+  const handleOptionClick = (option: any, index: number) => {
+    setSelectedOption(index);
+    // Add a small delay for smooth transition
+    setTimeout(() => {
+      onAnswer(option);
+    }, 200);
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
-      <div className="bg-white rounded-2xl shadow-lg p-10 flex flex-col items-center text-center space-y-4 max-w-lg w-full">
-        <h2 className="text-2xl font-bold">{question.question}</h2>
+    <div className="space-y-6">
+      {/* Question Header */}
+      <div>
+        <h2 className="text-lg font-medium text-gray-900 leading-relaxed">
+          {question.question}
+        </h2>
+      </div>
 
-        {/* <div className="flex flex-col w-full space-y-2">
-          {question.options.map((option, idx) => (
-            <Button key={idx} onClick={() => onAnswer(option)}>
-              {option.text}
-            </Button>
-          ))}
-        </div> */}
-
-        <div className="flex flex-col w-full space-y-2">
-          {question.options
-            .filter((option): option is QuestionOption => option != null)
-            .map((option, idx) => (
-              <Button key={idx} onClick={() => onAnswer(option)}>
-                {option.text}
-              </Button>
-            ))}
-        </div>
+      {/* Options */}
+      <div className="space-y-2">
+        {question.options.map((option, index) => (
+          <button
+            key={index}
+            onClick={() => handleOptionClick(option, index)}
+            className={`w-full p-3 text-left rounded-md transition-colors duration-150 border ${
+              selectedOption === index
+                ? "bg-gray-50 border-gray-400 text-gray-900"
+                : "bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300 text-gray-700 hover:text-gray-900"
+            }`}
+          >
+            <div className="flex items-center space-x-3">
+              {/* Radio Button with Checkmark */}
+              <div
+                className={`w-5 h-5 rounded-full flex items-center justify-center border-2 transition-all duration-150 ${
+                  selectedOption === index
+                    ? "bg-gray-600 border-gray-600"
+                    : "border-gray-300 hover:border-gray-400"
+                }`}
+              >
+                {selectedOption === index && (
+                  <div className="w-2 h-2 bg-white rounded-full" />
+                )}
+              </div>
+              <span className="text-base font-medium">{option.text}</span>
+            </div>
+          </button>
+        ))}
       </div>
     </div>
   );

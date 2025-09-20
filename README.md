@@ -1,69 +1,115 @@
-# React + TypeScript + Vite
+# GrowthLab Quiz Template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A customizable quiz application template that can be sold to clients. Users can manage questions through Sanity CMS and capture leads through MailerLite integration.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ✅ React + TypeScript frontend
+- ✅ Sanity CMS for question management
+- ✅ MailerLite integration for lead capture
+- ✅ Netlify Functions for serverless backend
+- ✅ Jotai for state management
+- ✅ Tailwind CSS for styling
+- ✅ Quiz branching logic
+- ✅ Form validation with Joi
 
-## Expanding the ESLint configuration
+## Setup Instructions
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Environment Variables
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Create a `.env` file in the root directory:
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+```env
+# Sanity (already configured)
+SANITY_PROJECT_ID=08fgj36d
+SANITY_DATASET=production
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# MailerLite (configure for each client)
+MAILERLITE_API_KEY=your_mailerlite_api_key
+MAILERLITE_GROUP_ID=your_mailerlite_group_id
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Sanity Studio Setup
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Navigate to the `studio` directory
+2. Install dependencies: `npm install`
+3. Start the studio: `npm run dev`
+4. Create questions with proper branching logic
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 3. Main Application
+
+1. Install dependencies: `npm install`
+2. Start development server: `npm run dev`
+3. Build for production: `npm run build`
+
+### 4. Deployment
+
+Deploy to Netlify with the included `netlify.toml` configuration.
+
+## Sanity Schema
+
+### Quiz Question Structure
+
+```typescript
+{
+  order: number,           // Display order
+  shortId: string,         // Human-readable ID (Q1, Q2, etc.)
+  question: string,        // The question text
+  options: [
+    {
+      text: string,        // Option text
+      next: Reference      // Next question or lead capture
+    }
+  ]
+}
 ```
+
+### Lead Capture
+
+Simple document with title and description for the email capture screen.
+
+## Client Customization
+
+For each client, update:
+
+1. **MailerLite Configuration**:
+   - API Key in environment variables
+   - Group ID for lead segmentation
+
+2. **Branding**:
+   - Logo in `src/assets/`
+   - Colors in Tailwind configuration
+   - Text content in Sanity
+
+3. **Questions**:
+   - Create questions in Sanity Studio
+   - Set up branching logic
+   - Configure lead capture flow
+
+## API Endpoints
+
+- `/.netlify/functions/sendLead` - Handles lead submission to MailerLite
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+cd studio && npm install
+
+# Start development servers
+npm run dev          # Main app
+cd studio && npm run dev  # Sanity studio
+
+# Run tests
+npm run test:ui
+
+# Build for production
+npm run build
+```
+
+## Troubleshooting
+
+1. **Questions not loading**: Check Sanity project ID and dataset configuration
+2. **Lead capture failing**: Verify MailerLite API key and group ID
+3. **Build errors**: Ensure all dependencies are installed and environment variables are set
